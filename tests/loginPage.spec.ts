@@ -1,10 +1,12 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/pages.fixture";
 import { errorMessages } from "../errors/errorMessages";
+import { pageRoutes } from "../routes/pageRoutes";
+import "dotenv/config";
 
 test.describe("Login Page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("https://gardenguru-preprod.vercel.app/");
+    await page.goto(pageRoutes.loginPage);
   });
 
   test("Login page shout have correct form", async ({ loginPage }) => {
@@ -22,7 +24,7 @@ test.describe("Login Page", () => {
   });
 
   test("User can not submit when password input is empty", async ({ loginPage }) => {
-    await loginPage.loginMailInput.fill("playWright-tester@gmail.com");
+    await loginPage.loginMailInput.fill(process.env.userEmailLogin!);
 
     const submitButton = await loginPage.loginSubmitButton;
     await submitButton.click();
@@ -56,7 +58,7 @@ test.describe("Login Page", () => {
   });
 
   test("User can not login when password is rong", async ({ loginPage }) => {
-    await loginPage.loginMailInput.fill("playWright-tester@gmail.com");
+    await loginPage.loginMailInput.fill(process.env.userEmailLogin!);
     await loginPage.loginPasswordInput.fill("playwright");
 
     const submitButton = await loginPage.loginSubmitButton;
@@ -68,8 +70,8 @@ test.describe("Login Page", () => {
   });
 
   test("User can login", async ({ loginPage }) => {
-    await loginPage.loginMailInput.fill("playWright-tester@gmail.com");
-    await loginPage.loginPasswordInput.fill("admin123");
+    await loginPage.loginMailInput.fill(process.env.userEmailLogin!);
+    await loginPage.loginPasswordInput.fill(process.env.userPasswordLogin!);
 
     const submitButton = await loginPage.loginSubmitButton;
     await submitButton.click();
