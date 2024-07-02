@@ -1,10 +1,12 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/pages.fixture";
 import { errorMessages } from "../errors/errorMessages";
+import { pageRoutes } from "../routes/pageRoutes";
+import "dotenv/config";
 
-test.describe("Regiter Page", () => {
+test.describe("Register Page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("https://gardenguru-preprod.vercel.app/register");
+    await page.goto(pageRoutes.regsiterPage);
   });
 
   test("Register page shout have correct form", async ({ registerPage }) => {
@@ -34,8 +36,8 @@ test.describe("Regiter Page", () => {
   });
 
   test("User can not submit when fullName input is empty", async ({ registerPage }) => {
-    await registerPage.registerMailInput.fill("playWright-tester@gmail.com");
-    await registerPage.registerPasswordInput.fill("admin123");
+    await registerPage.registerMailInput.fill(process.env.userEmailLogin!);
+    await registerPage.registerPasswordInput.fill(process.env.userPasswordLogin!);
 
     const submitButton = await registerPage.registerSubmitButton;
     await submitButton.click();
@@ -46,7 +48,7 @@ test.describe("Regiter Page", () => {
   });
 
   test("User can not submit when password input is empty", async ({ registerPage }) => {
-    await registerPage.registerMailInput.fill("playWright-tester@gmail.com");
+    await registerPage.registerMailInput.fill(process.env.userEmailLogin!);
     await registerPage.registerFullNameInput.fill("Play Wright");
 
     const submitButton = await registerPage.registerSubmitButton;
@@ -71,9 +73,9 @@ test.describe("Regiter Page", () => {
   });
 
   test("User can not register when email is already taken", async ({ registerPage }) => {
-    await registerPage.registerMailInput.fill("playWright-tester@gmail.com");
+    await registerPage.registerMailInput.fill(process.env.userEmailLogin!);
     await registerPage.registerFullNameInput.fill("Play Wright");
-    await registerPage.registerPasswordInput.fill("admin123");
+    await registerPage.registerPasswordInput.fill(process.env.userPasswordLogin!);
 
     const submitButton = await registerPage.registerSubmitButton;
     await submitButton.click();
@@ -89,7 +91,7 @@ test.describe("Regiter Page", () => {
 
     await registerPage.registerMailInput.fill(`newPlayWright-tester${randomNumber}@gmail.com`);
     await registerPage.registerFullNameInput.fill("Play Wright");
-    await registerPage.registerPasswordInput.fill("admin123");
+    await registerPage.registerPasswordInput.fill(process.env.userPasswordLogin!);
 
     const submitButton = await registerPage.registerSubmitButton;
     await submitButton.click();
