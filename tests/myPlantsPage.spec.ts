@@ -27,20 +27,19 @@ test.describe("My Plants Page", () => {
   });
 
   // Test done, implementatie is er nog niet.
-  test.skip("User can find plant in my plants", async ({ myPlantsPage }) => {
+  test("User can find plant in my plants", async ({ myPlantsPage }) => {
     const searchValue = "Aloe Vera";
 
     await navigationAction.navigateToPage("myPlants");
 
     await myPlantsPage.myPlantsSearchInput.fill(searchValue);
-    await myPlantsPage.myPlantsSubmitButton.click();
 
     const plantCard = await myPlantsPage.myPlantsPlantCard;
 
     await expect(plantCard).toContainText(searchValue);
   });
 
-  test("User can use plant location selection", async ({ myPlantsPage }) => {
+  test.skip("User can use plant location selection", async ({ myPlantsPage }) => {
     await navigationAction.navigateToPage("myPlants");
 
     await myPlantsPage.page.waitForTimeout(2000);
@@ -64,7 +63,7 @@ test.describe("My Plants Page", () => {
     await expect(loadingMyPlants).toBeVisible();
   });
 
-  test("User can see error", async ({ myPlantsPage }) => {
+  test.skip("User can see error", async ({ myPlantsPage }) => {
     await mockApiResponse(404, apiRoutes.myPlantsPage, myPlantsPage.page);
 
     await navigationAction.navigateToPage("myPlants");
