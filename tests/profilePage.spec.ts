@@ -24,4 +24,22 @@ test.describe("Profile Page", () => {
     await expect(profilePage.page.url()).toBe(pageRoutes.profilePage);
   });
 
+  test("Profile page should have correct top section", async ({ profilePage }) => {
+    const topSection = await profilePage.topSection;
+
+    await expect(topSection).toBeVisible();
+  });
+
+  test("Profile page should have correct info section", async ({ profilePage }) => {
+    const infoSection = await profilePage.infoSection;
+
+    await expect(infoSection).toBeVisible();
+  });
+
+  test("User should see own profile picture", async ({ profilePage }) => {
+    const profilePicture = await profilePage.profilePicture;
+
+    await expect(profilePicture).toBeVisible();
+  });
+
 });
