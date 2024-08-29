@@ -42,4 +42,21 @@ test.describe("Profile Page", () => {
     await expect(profilePicture).toBeVisible();
   });
 
+  test("User can change profile picture", async ({ profilePage }) => {
+    const editProfilePictureButton = await profilePage.editProfilePictureButton;
+
+    // Nog geen functionele werking van deze knop, dus voorlopig enkel testen op zichtbaarheid
+    await expect(editProfilePictureButton).toBeVisible();
+  });
+
+  test("User can logout", async ({ profilePage }) => {
+    const logoutButton = await profilePage.logoutButton;
+    await logoutButton.click();
+
+    await profilePage.page.waitForTimeout(1000);
+
+    const isAuthenticated = await profilePage.page.evaluate(() => localStorage.getItem("isAuthenticated") === null);
+
+    await expect(isAuthenticated).toBe(true);
+  });
 });
