@@ -15,4 +15,13 @@ test.describe("Profile Page", () => {
     await page.goto(pageRoutes.loginPage);
     await loginAction.loginPlayWrightTestuser();
   });
+
+  test("User can navigate to profile page", async ({
+    profilePage: profilePage,
+  }) => {
+    await navigationAction.navigateToPage("profile");
+    await profilePage.page.waitForTimeout(1000);
+    await expect(profilePage.page.url()).toBe(pageRoutes.profilePage);
+  });
+
 });
