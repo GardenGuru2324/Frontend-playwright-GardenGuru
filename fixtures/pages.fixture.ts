@@ -3,12 +3,14 @@ import { HomePage } from "../pages/homePage";
 import { LoginPage } from "../pages/loginPage";
 import { RegisterPage } from "../pages/registerPage";
 import { MyPlantsPage } from "../pages/myPlantsPage";
+import { ProfilePage } from "../pages/profilePage";
 
 type PageFixture = {
   homePage: HomePage;
   loginPage: LoginPage;
   registerPage: RegisterPage;
   myPlantsPage: MyPlantsPage;
+  profilePage: ProfilePage;
 };
 
 export const test = base.extend<PageFixture>({
@@ -23,5 +25,8 @@ export const test = base.extend<PageFixture>({
   },
   myPlantsPage: async ({ page }, use) => {
     await use(new MyPlantsPage(page));
+  },
+  profilePage: async ({ page }, use) => {
+    await use(new ProfilePage(page));
   },
 });
